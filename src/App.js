@@ -17,6 +17,7 @@ function App() {
       isComplete: false,
     };
     setToDoList([...todoList, task]);
+    setNewTask("");
   };
 
   const deleteTask = (id) => {
@@ -36,7 +37,11 @@ function App() {
   return (
     <div className="App">
       <div className="add-task">
-        <input onChange={handleChange} onKeyDown={handleKeyDown} />
+        <input
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          value={newTask}
+        />
         <button onClick={addTask}>Add task</button>
       </div>
 
