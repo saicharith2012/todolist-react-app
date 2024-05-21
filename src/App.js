@@ -1,6 +1,7 @@
 import "./App.css";
 import { useState } from "react";
 import { Task } from "./Components/Task.jsx";
+import DateTimeComponent from "./Components/DateAndTimeComponent.jsx";
 
 function App() {
   const [todoList, setToDoList] = useState([]);
@@ -36,6 +37,7 @@ function App() {
 
   return (
     <div className="App">
+    <DateTimeComponent />
       <div className="add-task">
         <input
           onChange={handleChange}
