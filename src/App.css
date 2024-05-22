@@ -10,7 +10,7 @@
 }
 
 .add-task {
-  padding: 50px;
+  padding: 30px 50px;
 }
 
 .add-task input {
@@ -43,7 +43,7 @@
 
 /* ScrollContainer.css */
 .scroll-container {
-  height: 550px; /* Set a fixed height */
+  height: 604px; /* Set a fixed height */
   overflow-y: auto; /* Enable vertical scrolling */
 }
 
