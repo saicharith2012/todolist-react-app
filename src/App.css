@@ -41,6 +41,26 @@
   background-color: rgba(0, 0, 0, 0.3);
 }
 
+/* ScrollContainer.css */
+.scroll-container {
+  height: 550px; /* Set a fixed height */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.scroll-container::-webkit-scrollbar {
+  width: 8px; /* Adjust width */
+}
+
+.scroll-container::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Track color */
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+  background-color: black; /* Handle color */
+}
+
+
+
 .task {
   width: 500px;
   height: 80px;
