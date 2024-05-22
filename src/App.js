@@ -1,12 +1,40 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Task } from "./Components/Task.jsx";
 import DateTimeComponent from "./Components/DateAndTimeComponent.jsx";
 
 function App() {
-  const [todoList, setToDoList] = useState([]);
+  const [todoList, setToDoList] = useState(() => {
+    const storedTasks = JSON.parse(localStorage.getItem("todoList")) || [];
+    const validTasks = storedTasks.filter((task) => {
+      const currentTime = new Date().getTime();
+      const taskTime = new Date(task.timestamp).getTime();
+      return currentTime - taskTime < 172800000; // 2 days
+    });
+    return validTasks;
+  });
   const [newTask, setNewTask] = useState("");
   const [errorMessage, setErrorMessage] = useState(""); // Add error message state
+
+  // Load tasks from local storage on initial render
+  // useEffect(() => {
+  //   const storedTasks = JSON.parse(localStorage.getItem("todoList")) || [];
+  //   if (storedTasks) {
+  //     const validTasks = storedTasks.filter((task) => {
+  //       // Check if the task has expired (replace '3600000' with your desired time in milliseconds)
+  //       const currentTime = new Date().getTime();
+  //       const taskTime = new Date(task.timestamp).getTime();
+  //       return currentTime - taskTime < 172800000; // 2 days
+  //     });
+  //     setToDoList(validTasks);
+  //   }
+  // }, []);
+
+  // Save tasks to local storage whenever todoList changes
+  useEffect(() => {
+    localStorage.setItem("todoList", JSON.stringify(todoList));
+    console.log(localStorage.getItem("todoList"));
+  }, [todoList]);
 
   const handleChange = (event) => {
     setNewTask(event.target.value);
@@ -20,6 +48,7 @@ function App() {
         id: todoList.length === 0 ? 1 : todoList[todoList.length - 1].id + 1,
         taskName: trimmedTask, // Use the trimmed value
         isComplete: false,
+        timestamp: new Date().toISOString(), // Use ISO string format
       };
       setToDoList([...todoList, task]);
       setNewTask("");
@@ -75,13 +104,14 @@ function App() {
           {todoList
             .slice()
             .reverse()
-            .map((task) => (
+            .map((task, key) => (
               <Task
                 taskName={task.taskName}
                 id={task.id}
                 isComplete={task.isComplete}
                 completeTask={completeTask}
                 deleteTask={deleteTask}
+                key={key}
               />
             ))}
         </div>
