@@ -23,7 +23,7 @@ function App() {
         taskName: trimmedTask, // Use the trimmed value
         isComplete: false,
       };
-      setToDoList([...todoList, task]);
+      setToDoList([task, ...todoList]);
       setNewTask("");
     } else {
       setErrorMessage("Task cannot be empty"); // Set error message
