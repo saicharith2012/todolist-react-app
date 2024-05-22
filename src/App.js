@@ -23,7 +23,7 @@ function App() {
         taskName: trimmedTask, // Use the trimmed value
         isComplete: false,
       };
-      setToDoList([task, ...todoList]);
+      setToDoList([...todoList, task]);
       setNewTask("");
     } else {
       setErrorMessage("Task cannot be empty"); // Set error message
@@ -60,7 +60,7 @@ function App() {
 
       <div className="scroll-container">
         <div className="list">
-          {todoList.map((task) => (
+          {todoList.slice().reverse().map((task) => (
             <Task
               taskName={task.taskName}
               id={task.id}
