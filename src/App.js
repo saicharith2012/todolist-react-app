@@ -8,11 +8,9 @@ function App() {
   const [newTask, setNewTask] = useState("");
   const [errorMessage, setErrorMessage] = useState(""); // Add error message state
 
-
   const handleChange = (event) => {
     setNewTask(event.target.value);
     setErrorMessage(""); // Clear error message when typing
-
   };
 
   const addTask = () => {
@@ -43,9 +41,12 @@ function App() {
   };
 
   const deleteAllTasks = () => {
-    const confirmDelete = window.confirm("Are you sure you want to delete all tasks?");
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete all tasks?"
+    );
     if (confirmDelete) {
       setToDoList([]);
+      window.location.reload();
     }
   };
 
@@ -62,24 +63,27 @@ function App() {
         />
         <button onClick={addTask}>Add task</button>
         {/* Display error message if it exists */}
-        {errorMessage && <p className="error-message">{errorMessage}</p>} 
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
       </div>
 
       <button onClick={deleteAllTasks} className="delete-all-button">
-          Delete All
-        </button>
+        Delete All
+      </button>
 
       <div className="scroll-container">
         <div className="list">
-          {todoList.slice().reverse().map((task) => (
-            <Task
-              taskName={task.taskName}
-              id={task.id}
-              isComplete={task.isComplete}
-              completeTask={completeTask}
-              deleteTask={deleteTask}
-            />
-          ))}
+          {todoList
+            .slice()
+            .reverse()
+            .map((task) => (
+              <Task
+                taskName={task.taskName}
+                id={task.id}
+                isComplete={task.isComplete}
+                completeTask={completeTask}
+                deleteTask={deleteTask}
+              />
+            ))}
         </div>
       </div>
     </div>
