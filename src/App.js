@@ -42,6 +42,13 @@ function App() {
     );
   };
 
+  const deleteAllTasks = () => {
+    const confirmDelete = window.confirm("Are you sure you want to delete all tasks?");
+    if (confirmDelete) {
+      setToDoList([]);
+    }
+  };
+
   const handleKeyDown = (event) => event.key === "Enter" && addTask();
 
   return (
@@ -57,6 +64,10 @@ function App() {
         {/* Display error message if it exists */}
         {errorMessage && <p className="error-message">{errorMessage}</p>} 
       </div>
+
+      <button onClick={deleteAllTasks} className="delete-all-button">
+          Delete All
+        </button>
 
       <div className="scroll-container">
         <div className="list">

@@ -60,7 +60,6 @@
 }
 
 
-
 .task {
   width: 500px;
   height: 80px;
@@ -113,6 +112,32 @@
   background-color: rgb(200, 47, 47);
   color: rgb(0,0,0);
 }
+
+
+.delete-all-button {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  background-color: white;
+  border: 1px solid black;
+  padding: 8px 10px;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.delete-all-button:hover {
+  background-color: rgb(200, 47, 47);
+  color: rgb(0,0,0);
+}
+
+.delete-all-button:active {
+  background-color: rgb(179, 13, 13);
+  color: rgb(0,0,0);
+}
+
 
 
 .datetime {
