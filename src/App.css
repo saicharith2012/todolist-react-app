@@ -1,3 +1,24 @@
+:root {
+  --bg-color: #ffffff;
+  --text-color: #222;
+  --element-bg: #ffffff;
+  --hover-bg: rgba(0, 0, 0, 0.3);
+  --border-color: black;
+  --track-bg: #f1f1f1;
+  --thumb-bg: black;
+}
+
+/* Dark Mode Override */
+body.dark {
+  --bg-color: #1E232A;
+  --text-color: #f4f4f4;
+  --element-bg: #1E232A; 
+  --hover-bg: rgba(255, 255, 255, 0.3);
+  --border-color: white;
+  --track-bg: #444;
+  --thumb-bg: #666; 
+}
+
 .App {
   text-align: center;
   display: flex;
@@ -5,8 +26,24 @@
   align-items: center;
 }
 
+.todo-list-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 * {
   font-family: "Courier New", Courier, monospace;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  --toggle-active-bg: #1E232A;
+  --toggle-inactive-bg: white;
+}
+
+body {
+  background-color: var(--bg-color);
+  margin: 0;
+  height: 100vh;
 }
 
 .add-task {
@@ -18,7 +55,7 @@
   width: 400px;
   font-size: 16px;
   border-width: 1px 0px 1px 1px;
-  border-color: black;
+  border-color: var(--border-color);
   border-style: solid;
 }
 
@@ -27,8 +64,7 @@
 }
 
 .add-task button {
-  background-color: white;
-  border: 1px solid black;
+  border: 1px solid var(--border-color);
   padding: 8px 10px;
   font-size: 16px;
   font-weight: 600;
@@ -68,7 +104,8 @@
   align-items: center;
   padding: 0px 20px;
   margin: 2px;
-  border: 2px solid black;
+  border: 2px solid var(--border-color);
+  background-color: var(--element-bg)
 }
 
 .task p {
@@ -77,22 +114,22 @@
   padding: 10px;
   font-weight: 600;
   font-size: large;
+  background-color: var(--element-bg);
 }
 
 .completeTask {
   font-size: 14px;
   padding: 4px 6px;
-  background-color: black;
+  background-color: var(--element-bg);
   border: none;
-  color: white;
-  border: 1px solid black;
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
   cursor: pointer;
   transition: background-color 0.15s, color 0.15s;
 }
 
 .completeTask:hover {
   background-color: green;
-  color: black;
 }
 
 .deleteTask {
@@ -101,9 +138,9 @@
   font-size: 14px;
   font-weight: bold;
   padding: 4px 6px;
-  border: 1px solid black;
-  background-color: black;
-  color: white;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-color);
+  color: var(--text-color);
   transition: background-color 0.15s, color 0.15s;
   cursor: pointer;
 }
@@ -118,8 +155,7 @@
   position: absolute;
   top: 30px;
   right: 30px;
-  background-color: white;
-  border: 1px solid black;
+  border: 1px solid var(--border-color);
   padding: 8px 10px;
   font-size: 16px;
   font-weight: 600;
@@ -143,4 +179,150 @@
 .datetime {
   font-size: 32px;
   font-weight: 600;
+}
+
+.toggle-container {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+
+/* React Toggle Styles (customize as needed) */
+.react-toggle {
+  touch-action: pan-x;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.react-toggle::after { /* Tooltip pseudo-element */
+  content: "change theme"; /* Tooltip text */
+  visibility: hidden; /* Initially hidden */
+  opacity: 0;
+  position: absolute;
+  top: -60px; /* Adjust position as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--bg-color); /* Customize background */
+  color: var(--text-color); /* Customize text color */
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid var(--border-color);
+  transition: visibility 0.5s, opacity 0.3s ease-in-out;
+}
+
+.react-toggle:hover::after {
+  visibility: visible;
+  opacity: 1;
+}
+
+.react-toggle-screenreader-only {
+  border: 1px;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+.react-toggle--checked .react-toggle-track {
+  background-color: var(--toggle-active-bg);
+  border: 2px solid white;
+
+}
+
+.react-toggle-track {
+  width: 60px;
+  height: 28px;
+  padding: 0;
+  border-radius: 30px;
+  border: 2px solid ;
+  background-color: var(--toggle-inactive-bg); /* Customize inactive background */
+  transition: all 0.5s ease;
+}
+
+.react-toggle-track-check {
+  display : none;
+  position: absolute;
+  width: 14px;
+  height: 10px;
+  top: 0px;
+  bottom: 0px;
+  margin-top: auto;
+  margin-bottom: auto;
+  line-height: 0;
+  left: 8px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.react-toggle--checked .react-toggle-track-check {
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.react-toggle-track-x::before {
+  display: none;
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  top: 0px;
+  bottom: 0px;
+  margin-top: auto;
+  margin-bottom: auto;
+  line-height: 0;
+  right: 10px;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.react-toggle--checked .react-toggle-track-x {
+  opacity: 0;
+}
+
+.react-toggle-thumb {
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 24px;
+  height: 24px;
+  border: 2px solid black; /* Customize thumb border */
+  border-radius: 50%;
+  background-color: white; /* Customize thumb background */
+  box-sizing: border-box;
+}
+
+.react-toggle--checked .react-toggle-thumb {
+  left: 36px;
+  background-color: #1E232A;
+  border: 2px solid white;
+}
+
+.react-toggle-track-check::before {
+  content: ""; 
+  font-size: 16px; 
+  color: var(--text-color); 
+  background-color: white;
+  transition: all 0.5s ease; 
+}
+
+.react-toggle-track-x::before {
+  content: ""; /* Sun icon (Unicode) */
+  font-size: 18px; /* Adjust size */
+  color: var(--text-color);
+  background-color: white;
+  transition: all 0.5s ease; 
 }

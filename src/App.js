@@ -2,6 +2,8 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import { Task } from "./Components/Task.jsx";
 import DateTimeComponent from "./Components/DateAndTimeComponent.jsx";
+import Toggle from "react-toggle";
+import useColorScheme from "./utils/useColorScheme.js";
 
 function App() {
   const [todoList, setToDoList] = useState(() => {
@@ -15,6 +17,7 @@ function App() {
   });
   const [newTask, setNewTask] = useState("");
   const [errorMessage, setErrorMessage] = useState(""); // Add error message state
+  const [isDarkMode, setIsDarkMode] = useColorScheme();
 
   // Load tasks from local storage on initial render
   // useEffect(() => {
@@ -83,6 +86,7 @@ function App() {
 
   return (
     <div className="App">
+      <div className="todo-list-container">
       <DateTimeComponent />
       <div className="add-task">
         <input
@@ -98,6 +102,15 @@ function App() {
       <button onClick={deleteAllTasks} className="delete-all-button">
         Delete All
       </button>
+
+      <div className="toggle-container">
+        <Toggle
+          checked={isDarkMode}
+          onChange={() => setIsDarkMode(!isDarkMode)}
+          icons={{ checked: "", unchecked: "" }}
+          aria-label="Dark mode toggle"
+        />
+      </div>
 
       <div className="scroll-container">
         <div className="list">
@@ -115,6 +128,7 @@ function App() {
               />
             ))}
         </div>
+      </div>
       </div>
     </div>
   );
