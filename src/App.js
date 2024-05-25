@@ -73,12 +73,16 @@ function App() {
   };
 
   const deleteAllTasks = () => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete all tasks?"
-    );
-    if (confirmDelete) {
-      setToDoList([]);
-      window.location.reload();
+    if (todoList.length === 0) {
+      window.alert("There are no tasks to delete.");
+    } else {
+      const confirmDelete = window.confirm(
+        "Are you sure you want to delete all tasks?"
+      );
+      if (confirmDelete) {
+        setToDoList([]);
+        window.location.reload();
+      }
     }
   };
 
@@ -87,48 +91,48 @@ function App() {
   return (
     <div className="App">
       <div className="todo-list-container">
-      <DateTimeComponent />
-      <div className="add-task">
-        <input
-          onChange={handleChange}
-          onKeyDown={handleKeyDown}
-          value={newTask}
-        />
-        <button onClick={addTask}>Add task</button>
-        {/* Display error message if it exists */}
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
-      </div>
-
-      <button onClick={deleteAllTasks} className="delete-all-button">
-        Delete All
-      </button>
-
-      <div className="toggle-container">
-        <Toggle
-          checked={isDarkMode}
-          onChange={() => setIsDarkMode(!isDarkMode)}
-          icons={{ checked: "", unchecked: "" }}
-          aria-label="Dark mode toggle"
-        />
-      </div>
-
-      <div className="scroll-container">
-        <div className="list">
-          {todoList
-            .slice()
-            .reverse()
-            .map((task, key) => (
-              <Task
-                taskName={task.taskName}
-                id={task.id}
-                isComplete={task.isComplete}
-                completeTask={completeTask}
-                deleteTask={deleteTask}
-                key={key}
-              />
-            ))}
+        <DateTimeComponent />
+        <div className="add-task">
+          <input
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
+            value={newTask}
+          />
+          <button onClick={addTask}>Add task</button>
+          {/* Display error message if it exists */}
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
         </div>
-      </div>
+
+        <button onClick={deleteAllTasks} className="delete-all-button">
+          Delete All
+        </button>
+
+        <div className="toggle-container">
+          <Toggle
+            checked={isDarkMode}
+            onChange={() => setIsDarkMode(!isDarkMode)}
+            icons={{ checked: "", unchecked: "" }}
+            aria-label="Dark mode toggle"
+          />
+        </div>
+
+        <div className="scroll-container">
+          <div className="list">
+            {todoList
+              .slice()
+              .reverse()
+              .map((task, key) => (
+                <Task
+                  taskName={task.taskName}
+                  id={task.id}
+                  isComplete={task.isComplete}
+                  completeTask={completeTask}
+                  deleteTask={deleteTask}
+                  key={key}
+                />
+              ))}
+          </div>
+        </div>
       </div>
     </div>
   );
