@@ -1,7 +1,7 @@
 :root {
-  --bg-color: #ffffff;
+  --bg-color: #f1f1f1;
   --text-color: #222;
-  --element-bg: #ffffff;
+  --element-bg: #f1f1f1;
   --hover-bg: rgba(0, 0, 0, 0.3);
   --border-color: black;
   --track-bg: #f1f1f1;
@@ -37,7 +37,7 @@ body.dark {
   background-color: var(--bg-color);
   color: var(--text-color);
   --toggle-active-bg: #1E232A;
-  --toggle-inactive-bg: white;
+  --toggle-inactive-bg: #f1f1f1;
 }
 
 body {
@@ -299,15 +299,15 @@ body {
   left: 4px;
   width: 24px;
   height: 24px;
-  border: 2px solid black; /* Customize thumb border */
+  border: 2px solid black;
   border-radius: 50%;
-  background-color: white; /* Customize thumb background */
+  background-color: white; 
   box-sizing: border-box;
 }
 
 .react-toggle--checked .react-toggle-thumb {
   left: 36px;
-  background-color: #1E232A;
+  background-color: black;
   border: 2px solid white;
 }
 
