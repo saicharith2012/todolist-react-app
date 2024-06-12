@@ -5,7 +5,7 @@ export function Task(props) {
       style={{ backgroundColor: props.isComplete && "green" }}
     >
       <p style={{ backgroundColor: props.isComplete && "green" }}>
-        {props.taskName}
+        {props.taskName.toUpperCase()}
       </p>
       <button
         className="completeTask"
