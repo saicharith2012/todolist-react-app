@@ -1,9 +1,10 @@
 import "./App.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Task } from "./Components/Task.jsx";
 import DateTimeComponent from "./Components/DateAndTimeComponent.jsx";
 import Toggle from "react-toggle";
 import useColorScheme from "./utils/useColorScheme.js";
+import moment from "moment";
 
 function App() {
   const [todoList, setToDoList] = useState(() => {
@@ -18,6 +19,7 @@ function App() {
   const [newTask, setNewTask] = useState("");
   const [errorMessage, setErrorMessage] = useState(""); // Add error message state
   const [isDarkMode, setIsDarkMode] = useColorScheme();
+  const inputRef = useRef(null)
 
   // Load tasks from local storage on initial render
   // useEffect(() => {
@@ -33,10 +35,14 @@ function App() {
   //   }
   // }, []);
 
+  useEffect(() => {
+    inputRef.current.focus()
+  })
+
   // Save tasks to local storage whenever todoList changes
   useEffect(() => {
     localStorage.setItem("todoList", JSON.stringify(todoList));
-    console.log(localStorage.getItem("todoList"));
+    // console.log(localStorage.getItem("todoList"));
   }, [todoList]);
 
   const handleChange = (event) => {
@@ -51,7 +57,7 @@ function App() {
         id: todoList.length === 0 ? 1 : todoList[todoList.length - 1].id + 1,
         taskName: trimmedTask, // Use the trimmed value
         isComplete: false,
-        timestamp: new Date().toISOString(), // Use ISO string format
+        timestamp: moment().toISOString(), // Use ISO string format
       };
       setToDoList([...todoList, task]);
       setNewTask("");
@@ -88,6 +94,14 @@ function App() {
 
   const handleKeyDown = (event) => event.key === "Enter" && addTask();
 
+  const updateTask = (id, newTaskName) => {
+    setToDoList(
+          todoList.map((task) =>
+            (task.id === id && newTaskName !== "") ? { ...task, taskName: newTaskName } : task
+          )
+        )
+  };
+
   return (
     <div className="App">
       <div className="todo-list-container">
@@ -97,6 +111,7 @@ function App() {
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             value={newTask}
+            ref={inputRef}
           />
           <button onClick={addTask}>Add task</button>
           {/* Display error message if it exists */}
@@ -129,6 +144,7 @@ function App() {
                   completeTask={completeTask}
                   deleteTask={deleteTask}
                   key={key}
+                  updateTask={updateTask}
                 />
               ))}
           </div>
