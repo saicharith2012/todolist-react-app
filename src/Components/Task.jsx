@@ -42,6 +42,7 @@ export function Task(props) {
         </p>
       )}
 
+      <div className="taskButtons">
       {isEditing ? (
         <button
           className="saveEdit"
@@ -91,6 +92,7 @@ export function Task(props) {
       >
         X
       </button>
+      </div>
     </div>
   );
 }

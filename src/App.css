@@ -117,6 +117,15 @@ body {
   background-color: var(--element-bg);
 }
 
+
+.taskButtons  {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  width: 200px;
+}
+
 .editInput {
   width: 300px;
   margin-right: 10px;
@@ -133,6 +142,7 @@ body {
   padding: 5px 4px 4px 4px;
   transition: background-color 0.15s, color 0.15s;
   cursor: pointer;
+  margin: 5px;
 }
 
 .editTask:hover {
@@ -178,6 +188,7 @@ body {
   color: var(--text-color);
   cursor: pointer;
   transition: background-color 0.15s, color 0.15s;
+  margin: 5px;
 }
 
 .deleteTask:hover {
@@ -373,8 +384,39 @@ body {
     flex-direction: column;
     align-items: center;
   }
+}
+
+@media (max-width: 564px) {
+  .add-task input {
+    border-width: 1px;
+    margin: 5px;
+    width: 300px
+  }
+
+  .add-task {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
   .task {
-    height: 100px;
+    width: 400px;
+    padding: 0px 10px;
   }
+
+  .taskButtons  {
+    display: flex;
+    flex-direction: column;
+    align-content: space-around;
+    justify-content: center;
+    width: 120px;
+  }
+
+  .task p {
+    width: 260px;
+  }
+
+
+
+
 }
