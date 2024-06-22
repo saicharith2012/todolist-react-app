@@ -7,7 +7,7 @@ export function Task(props) {
 
   useEffect(() => {
     if (isEditing) {
-      editInputRef.current.focus();  // Focus the input when isEditing becomes true
+      editInputRef.current.focus(); // Focus the input when isEditing becomes true
     }
   }, [isEditing]);
 
@@ -42,56 +42,64 @@ export function Task(props) {
         </p>
       )}
 
-      <div className="taskButtons">
-      {isEditing ? (
-        <button
-          className="saveEdit"
-          onClick={() => {
-            props.updateTask(props.id, editedTaskName); // Function to update the task
-            setIsEditing(false);
-          }}
-        >
-          Save
-        </button>
-      ) : (
-        <button
-          className="editTask"
-          style={{
-            ...(props.isComplete && {
-              backgroundColor: "green",
-              cursor: "alias",
-            }),
-          }}
-          onClick={() => {
-            if (!props.isComplete) {
-              setIsEditing(true);
-            }
-          }}
-        >
-          Edit
-        </button>
-      )}
-
-      <button
-        className="completeTask"
+      <div
+        className="taskButtons"
         style={{
           ...(props.isComplete && {
             backgroundColor: "green",
             cursor: "alias",
           }),
         }}
-        onClick={() => props.completeTask(props.id)}
-        disabled={isEditing}
       >
-        complete
-      </button>
-      <button
-        className="deleteTask"
-        onClick={() => props.deleteTask(props.id)}
-        disabled={isEditing}
-      >
-        X
-      </button>
+        {isEditing ? (
+          <button
+            className="saveEdit"
+            onClick={() => {
+              props.updateTask(props.id, editedTaskName); // Function to update the task
+              setIsEditing(false);
+            }}
+          >
+            Save
+          </button>
+        ) : (
+          <button
+            className="editTask"
+            style={{
+              ...(props.isComplete && {
+                backgroundColor: "green",
+                cursor: "alias",
+              }),
+            }}
+            onClick={() => {
+              if (!props.isComplete) {
+                setIsEditing(true);
+              }
+            }}
+          >
+            Edit
+          </button>
+        )}
+
+        <button
+          className="completeTask"
+          style={{
+            ...(props.isComplete && {
+              backgroundColor: "green",
+              cursor: "alias",
+            }),
+          }}
+          onClick={() => props.completeTask(props.id)}
+          disabled={isEditing}
+        >
+          complete
+        </button>
+        <button
+          className="deleteTask"
+          onClick={() => props.deleteTask(props.id)}
+          disabled={isEditing}
+        >
+          X
+        </button>
       </div>
     </div>
   );
