@@ -188,13 +188,12 @@ body {
 
 .delete-all-button {
   position: absolute;
-  top: 30px;
-  right: 30px;
+  bottom: 20px;
+  left: 20px;
   border: 1px solid var(--border-color);
   padding: 8px 10px;
   font-size: 16px;
   font-weight: 600;
-  margin-top: 10px;
   cursor: pointer;
   transition: background-color 0.2s;
 }
@@ -360,4 +359,21 @@ body {
   color: var(--text-color);
   background-color: white;
   transition: all 0.5s ease; 
+}
+
+@media (max-width: 1060px) {
+  .add-task input {
+    border-width: 1px;
+    margin: 5px;
+  }
+
+  .add-task {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .task {
+    height: 100px;
+  }
 }
