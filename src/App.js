@@ -16,10 +16,11 @@ function App() {
     });
     return validTasks;
   });
+  const [topic, setTopic] = useState("");
   const [newTask, setNewTask] = useState("");
   const [errorMessage, setErrorMessage] = useState(""); // Add error message state
   const [isDarkMode, setIsDarkMode] = useColorScheme();
-  const inputRef = useRef(null)
+  const inputRef = useRef(null);
 
   // Load tasks from local storage on initial render
   // useEffect(() => {
@@ -36,8 +37,8 @@ function App() {
   // }, []);
 
   useEffect(() => {
-    inputRef.current.focus()
-  })
+    inputRef.current.focus();
+  }, [todoList]);
 
   // Save tasks to local storage whenever todoList changes
   useEffect(() => {
@@ -45,24 +46,31 @@ function App() {
     // console.log(localStorage.getItem("todoList"));
   }, [todoList]);
 
-  const handleChange = (event) => {
+  const handleTaskChange = (event) => {
     setNewTask(event.target.value);
     setErrorMessage(""); // Clear error message when typing
   };
 
+  const handleTopicChange = (event) => {
+    setTopic(event.target.value);
+    setErrorMessage("");
+  };
+
   const addTask = () => {
     const trimmedTask = newTask.trim();
-    if (trimmedTask !== "") {
+    const trimmedTopic = topic.trim();
+    if (trimmedTask !== "" && trimmedTopic !== "") {
       const task = {
         id: todoList.length === 0 ? 1 : todoList[todoList.length - 1].id + 1,
-        taskName: trimmedTask, // Use the trimmed value
+        taskName: `[${trimmedTopic}] - ${trimmedTask}`, // Use the trimmed value
         isComplete: false,
         timestamp: moment().toISOString(), // Use ISO string format
       };
       setToDoList([...todoList, task]);
       setNewTask("");
+      setTopic("");
     } else {
-      setErrorMessage("Task cannot be empty"); // Set error message
+      setErrorMessage("Task/Topic cannot be empty"); // Set error message
     }
   };
 
@@ -96,10 +104,12 @@ function App() {
 
   const updateTask = (id, newTaskName) => {
     setToDoList(
-          todoList.map((task) =>
-            (task.id === id && newTaskName !== "") ? { ...task, taskName: newTaskName } : task
-          )
-        )
+      todoList.map((task) =>
+        task.id === id && newTaskName !== ""
+          ? { ...task, taskName: newTaskName }
+          : task
+      )
+    );
   };
 
   return (
@@ -108,11 +118,18 @@ function App() {
         <DateTimeComponent />
         <div className="add-task">
           <input
-            onChange={handleChange}
+            onChange={handleTaskChange}
             onKeyDown={handleKeyDown}
             value={newTask}
             ref={inputRef}
+            placeholder="Add task here..."
           />
+          <input
+            value={topic}
+            onChange={handleTopicChange}
+            onKeyDown={handleKeyDown}
+            placeholder="Topic"
+          ></input>
           <button onClick={addTask}>Add task</button>
           {/* Display error message if it exists */}
           {errorMessage && <p className="error-message">{errorMessage}</p>}
