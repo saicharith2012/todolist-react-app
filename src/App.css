@@ -33,7 +33,7 @@ body.dark {
 }
 
 * {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Courier New', Courier, monospace;
   background-color: var(--bg-color);
   color: var(--text-color);
   --toggle-active-bg: #1E232A;
@@ -82,7 +82,6 @@ body {
   height: 400px; 
   overflow-y: scroll; 
   margin-bottom: 80px;
-  border: 2px solid var(--border-color);
 }
 
 .scroll-container::-webkit-scrollbar {
