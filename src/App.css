@@ -10,12 +10,12 @@
 
 /* Dark Mode Override */
 body.dark {
-  --bg-color: #1E232A;
-  --text-color: #f4f4f4;
-  --element-bg: #1E232A; 
+  --bg-color: #282828;
+  --text-color: #FFFAFA;
+  --element-bg: #282828; 
   --hover-bg: rgba(255, 255, 255, 0.3);
-  --border-color: rgba(255,255,255);
-  --track-bg: #1E232A;
+  --border-color: #f1f1f1;
+  --track-bg: #282828;
   --thumb-bg: white; 
 }
 
@@ -79,8 +79,10 @@ body {
 
 
 .scroll-container {
-  height: 604px; 
-  overflow-y: scroll; /* Enable vertical scrolling */
+  height: 400px; 
+  overflow-y: scroll; 
+  margin-bottom: 80px;
+  border: 2px solid var(--border-color);
 }
 
 .scroll-container::-webkit-scrollbar {
@@ -104,7 +106,10 @@ body {
   padding: 0px 20px;
   margin: 2px;
   border: 2px solid var(--border-color);
-  background-color: var(--element-bg)
+  background-color: var(--element-bg);
+  -webkit-box-shadow: -1px 1px 4px 1px rgba(0,0,0,0.22);
+-moz-box-shadow: -1px 1px 4px 1px rgba(0,0,0,0.22);
+box-shadow: -1px 1px 4px 1px rgba(0,0,0,0.22);
 }
 
 .task p {
@@ -382,6 +387,10 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+  
+  .scroll-container{
+    height: 320px;
   }
 }
 
