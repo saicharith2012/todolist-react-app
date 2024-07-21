@@ -87,7 +87,7 @@ export function Task(props) {
               }
             }}
           >
-            Edit
+            edit
           </button>
         )}
 

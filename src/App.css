@@ -33,7 +33,7 @@ body.dark {
 }
 
 * {
-  font-family: "Courier New", Courier, monospace;
+  font-family: "Roboto", sans-serif;
   background-color: var(--bg-color);
   color: var(--text-color);
   --toggle-active-bg: #1E232A;
