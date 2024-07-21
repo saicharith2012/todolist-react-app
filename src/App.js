@@ -1,7 +1,7 @@
 import "./App.css";
 import { useState, useEffect, useRef } from "react";
-import { Task } from "./Components/Task.jsx";
-import DateTimeComponent from "./Components/DateAndTimeComponent.jsx";
+import { Task } from "./components/Task.jsx";
+import DateTimeComponent from "./components/DateAndTimeComponent.jsx";
 import Toggle from "react-toggle";
 import useColorScheme from "./utils/useColorScheme.js";
 import moment from "moment";
