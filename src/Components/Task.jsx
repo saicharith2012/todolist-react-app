@@ -1,9 +1,18 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useReducer } from "react";
 
 export function Task(props) {
   const editInputRef = useRef(null);
   const [isEditing, setIsEditing] = useState(false);
-  const [editedTaskName, setEditedTaskName] = useState(props.taskName);
+  const initialState = {editedTaskName: props.taskName}
+
+  function reducer (state, action) {
+    if(action.taskName) {
+      return {editedTaskName: action.taskName}
+    } else {
+      throw new Error()
+    }
+  }
+  const [state, dispatch] = useReducer(reducer, initialState)
 
   useEffect(() => {
     if (isEditing) {
@@ -13,7 +22,7 @@ export function Task(props) {
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
-      props.updateTask(props.id, editedTaskName);
+      props.updateTask(props.id, state.editedTaskName);
       setIsEditing(false);
     }
   };
@@ -31,8 +40,8 @@ export function Task(props) {
         <input
           className="editInput"
           type="text"
-          value={editedTaskName}
-          onChange={(e) => setEditedTaskName(e.target.value)}
+          value={state.editedTaskName}
+          onChange={(e) => dispatch({taskName: e.target.value})}
           ref={editInputRef}
           onKeyDown={handleKeyDown}
         />
@@ -55,7 +64,7 @@ export function Task(props) {
           <button
             className="saveEdit"
             onClick={() => {
-              props.updateTask(props.id, editedTaskName); // Function to update the task
+              props.updateTask(props.id, state.editedTaskName); // Function to update the task
               setIsEditing(false);
             }}
           >
@@ -70,9 +79,11 @@ export function Task(props) {
                 cursor: "alias",
               }),
             }}
-            onClick={() => {
+            onClick={(e) => {
               if (!props.isComplete) {
                 setIsEditing(true);
+                // console.log(props)
+                dispatch({taskName: props.taskName})
               }
             }}
           >
