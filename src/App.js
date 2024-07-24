@@ -5,6 +5,7 @@ import DateTimeComponent from "./Components/DateAndTimeComponent.jsx";
 import Toggle from "react-toggle";
 import useColorScheme from "./utils/useColorScheme.js";
 import moment from "moment";
+import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd"; // Importing necessary components
 
 function App() {
   const [todoList, setToDoList] = useState(() => {
@@ -22,28 +23,12 @@ function App() {
   const [isDarkMode, setIsDarkMode] = useColorScheme();
   const inputRef = useRef(null);
 
-  // Load tasks from local storage on initial render
-  // useEffect(() => {
-  //   const storedTasks = JSON.parse(localStorage.getItem("todoList")) || [];
-  //   if (storedTasks) {
-  //     const validTasks = storedTasks.filter((task) => {
-  //       // Check if the task has expired (replace '3600000' with your desired time in milliseconds)
-  //       const currentTime = new Date().getTime();
-  //       const taskTime = new Date(task.timestamp).getTime();
-  //       return currentTime - taskTime < 172800000; // 2 days
-  //     });
-  //     setToDoList(validTasks);
-  //   }
-  // }, []);
-
   useEffect(() => {
     inputRef.current.focus();
   }, [todoList]);
 
-  // Save tasks to local storage whenever todoList changes
   useEffect(() => {
     localStorage.setItem("todoList", JSON.stringify(todoList));
-    // console.log(localStorage.getItem("todoList"));
   }, [todoList]);
 
   const handleTaskChange = (event) => {
@@ -81,7 +66,7 @@ function App() {
   const completeTask = (id) => {
     setToDoList(
       todoList.map((task) => {
-        return task.id === id ? (task = { ...task, isComplete: true }) : task;
+        return task.id === id ? { ...task, isComplete: true } : task;
       })
     );
   };
@@ -112,6 +97,17 @@ function App() {
     );
   };
 
+  // Function to handle drag end
+  const handleOnDragEnd = (result) => {
+    if (!result.destination) return;
+
+    const reorderedList = Array.from(todoList);
+    const [movedTask] = reorderedList.splice(result.source.index, 1);
+    reorderedList.splice(result.destination.index, 0, movedTask);
+
+    setToDoList(reorderedList);
+  };
+
   return (
     <div className="App">
       <div className="todo-list-container">
@@ -129,7 +125,7 @@ function App() {
             onChange={handleTopicChange}
             onKeyDown={handleKeyDown}
             placeholder="Topic"
-          ></input>
+          />
           <button onClick={addTask}>Add task</button>
           {/* Display error message if it exists */}
           {errorMessage && <p className="error-message">{errorMessage}</p>}
@@ -148,24 +144,46 @@ function App() {
           />
         </div>
 
-        <div className="scroll-container">
-          <div className="list">
-            {todoList
-              .slice()
-              .reverse()
-              .map((task, key) => (
-                <Task
-                  taskName={task.taskName}
-                  id={task.id}
-                  isComplete={task.isComplete}
-                  completeTask={completeTask}
-                  deleteTask={deleteTask}
-                  key={key}
-                  updateTask={updateTask}
-                />
-              ))}
-          </div>
-        </div>
+        {/* DragDropContext Component */}
+        <DragDropContext onDragEnd={handleOnDragEnd}>
+          <Droppable droppableId="tasks">
+            {(provided) => (
+              <div
+                className="scroll-container"
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+              >
+                <div className="list">
+                  {todoList.map((task, index) => (
+                    <Draggable
+                      key={task.id}
+                      draggableId={task.id.toString()}
+                      index={index}
+                    >
+                      {(provided) => (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                        >
+                          <Task
+                            taskName={task.taskName}
+                            id={task.id}
+                            isComplete={task.isComplete}
+                            completeTask={completeTask}
+                            deleteTask={deleteTask}
+                            updateTask={updateTask}
+                          />
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
       </div>
     </div>
   );
