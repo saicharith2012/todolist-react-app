@@ -6,6 +6,7 @@ import Toggle from "react-toggle";
 import useColorScheme from "./utils/useColorScheme.js";
 import moment from "moment";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd"; // Importing necessary components
+import { v4 as uuidv4 } from "uuid";
 
 function App() {
   const [todoList, setToDoList] = useState(() => {
@@ -46,12 +47,12 @@ function App() {
     const trimmedTopic = topic.trim();
     if (trimmedTask !== "" && trimmedTopic !== "") {
       const task = {
-        id: todoList.length === 0 ? 1 : todoList[todoList.length - 1].id + 1,
+        id: uuidv4(), // generated unique id.
         taskName: `[${trimmedTopic}] - ${trimmedTask}`, // Use the trimmed value
         isComplete: false,
         timestamp: moment().toISOString(), // Use ISO string format
       };
-      setToDoList([...todoList, task]);
+      setToDoList([task, ...todoList]);
       setNewTask("");
       setTopic("");
     } else {
