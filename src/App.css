@@ -87,7 +87,7 @@ body {
 .scroll-container {
   height: 640px; 
   overflow-y: scroll; 
-  margin-bottom: 80px;
+  margin-bottom: 60px;
 }
 
 .scroll-container::-webkit-scrollbar {
