@@ -79,7 +79,7 @@ body {
 
 
 .scroll-container {
-  height: 400px; 
+  height: 640px; 
   overflow-y: scroll; 
   margin-bottom: 80px;
 }
@@ -389,7 +389,7 @@ box-shadow: -1px 1px 4px 1px rgba(0,0,0,0.22);
   }
   
   .scroll-container{
-    height: 320px;
+    height: 520px;
   }
 }
 
