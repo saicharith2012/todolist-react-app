@@ -385,6 +385,36 @@ box-shadow: -1px 1px 4px 1px var(--shadow-color);
   transition: all 0.5s ease; 
 }
 
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  text-align: center;
+  font-size: 12px;
+  padding: 2px 5px;
+  border: 1px solid var(--border-color);
+  position: absolute;
+  z-index: 1;
+  bottom: 4%; /* Position the tooltip above the element */
+  left: 30%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: all 0.5s;
+  white-space: nowrap;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+
 @media (max-width: 1060px) {
   .add-task input {
     border-width: 1px;

@@ -7,6 +7,7 @@ import useColorScheme from "./utils/useColorScheme.js";
 import moment from "moment";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd"; // Importing necessary components
 import { v4 as uuidv4 } from "uuid";
+import Tooltip from "./Components/Tooltip.jsx";
 
 function App() {
   const [todoList, setToDoList] = useState(() => {
@@ -167,14 +168,16 @@ function App() {
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                         >
-                          <Task
-                            taskName={task.taskName}
-                            id={task.id}
-                            isComplete={task.isComplete}
-                            completeTask={completeTask}
-                            deleteTask={deleteTask}
-                            updateTask={updateTask}
-                          />
+                          <Tooltip text={"Drag and drop to reorder"}>
+                            <Task
+                              taskName={task.taskName}
+                              id={task.id}
+                              isComplete={task.isComplete}
+                              completeTask={completeTask}
+                              deleteTask={deleteTask}
+                              updateTask={updateTask}
+                            />
+                          </Tooltip>
                         </div>
                       )}
                     </Draggable>
