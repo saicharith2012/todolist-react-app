@@ -32,6 +32,7 @@ body.dark {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 * {
@@ -85,7 +86,7 @@ body {
 
 
 .scroll-container {
-  height: 640px; 
+  height: 610px; 
   overflow-y: scroll; 
   margin-bottom: 60px;
 }
@@ -415,7 +416,7 @@ box-shadow: -1px 1px 4px 1px var(--shadow-color);
 }
 
 
-@media (max-width: 1060px) {
+@media (564px <= width <= 1060px) {
   .add-task input {
     border-width: 1px;
     margin: 5px;
@@ -436,17 +437,18 @@ box-shadow: -1px 1px 4px 1px var(--shadow-color);
   .add-task input {
     border-width: 1px;
     margin: 5px;
-    width: 300px
+    width: 270px
   }
 
   .add-task {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 30px 0px;
   }
 
   .task {
-    width: 400px;
+    width: 260px;
     padding: 0px 10px;
   }
 
@@ -462,7 +464,12 @@ box-shadow: -1px 1px 4px 1px var(--shadow-color);
     width: 260px;
   }
 
+  .scroll-container {
+    height: 480px;
+    padding-right: 0px;
+  }
 
-
-
+  .tooltip-text {
+    left: 40%
+  }
 }
