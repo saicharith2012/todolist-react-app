@@ -155,7 +155,14 @@ function App() {
                 {...provided.droppableProps}
                 ref={provided.innerRef}
               >
-                <div className="list">
+                <div
+                  className="list"
+                  style={
+                    todoList.length !== 0
+                      ? { border: "2px solid black" }
+                      : { border: "none" }
+                  }
+                >
                   {todoList.map((task, index) => (
                     <Draggable
                       key={task.id}
