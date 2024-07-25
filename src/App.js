@@ -110,6 +110,8 @@ function App() {
     setToDoList(reorderedList);
   };
 
+  // console.log(isDarkMode);
+
   return (
     <div className="App">
       <div className="todo-list-container">
@@ -157,11 +159,7 @@ function App() {
               >
                 <div
                   className="list"
-                  style={
-                    todoList.length !== 0
-                      ? { border: "2px solid black" }
-                      : { border: "none" }
-                  }
+                  style={todoList.length === 0 ? { border: "none" } : {}}
                 >
                   {todoList.map((task, index) => (
                     <Draggable
