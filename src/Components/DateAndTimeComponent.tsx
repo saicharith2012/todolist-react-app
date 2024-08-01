@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 
 const DateTimeComponent = () => {
-  const [currentDateTime, setCurrentDateTime] = useState(moment().format('MMMM Do YYYY, h:mm:ss A.'));
+  const [currentDateTime, setCurrentDateTime] = useState<string>(moment().format('MMMM Do YYYY, h:mm:ss A.'));
 
   useEffect(() => {
     const interval = setInterval(() => {

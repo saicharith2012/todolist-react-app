@@ -1,26 +1,35 @@
 import { useState, useRef, useEffect, useReducer } from "react";
 
-export function Task(props) {
-  const editInputRef = useRef(null);
-  const [isEditing, setIsEditing] = useState(false);
-  const initialState = {editedTaskName: props.taskName}
+interface Props {
+  taskName: string;
+  id: string;
+  isComplete: boolean;
+  completeTask: (id: string) => void;
+  deleteTask: (id: string) => void;
+  updateTask: (id: string, newTaskName: string) => void;
+}
 
-  function reducer (state, action) {
-    if(action.taskName) {
-      return {editedTaskName: action.taskName}
+export function Task(props: Props) {
+  const editInputRef = useRef<HTMLInputElement | null>(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const initialState = { editedTaskName: props.taskName };
+
+  function reducer(_state: typeof initialState, action: {taskName: string}) {
+    if (action.taskName) {
+      return { editedTaskName: action.taskName };
     } else {
-      throw new Error()
+      throw new Error();
     }
   }
-  const [state, dispatch] = useReducer(reducer, initialState)
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    if (isEditing) {
+    if (isEditing && editInputRef.current) {
       editInputRef.current.focus(); // Focus the input when isEditing becomes true
     }
   }, [isEditing]);
 
-  const handleKeyDown = (event) => {
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
       props.updateTask(props.id, state.editedTaskName);
       setIsEditing(false);
@@ -31,7 +40,7 @@ export function Task(props) {
     <div
       className="task"
       style={{
-        backgroundColor: props.isComplete && "green",
+        backgroundColor: props.isComplete ? "green" : undefined,
         display: "flex",
         alignItems: "center",
       }}
@@ -41,12 +50,12 @@ export function Task(props) {
           className="editInput"
           type="text"
           value={state.editedTaskName}
-          onChange={(e) => dispatch({taskName: e.target.value})}
+          onChange={(e) => dispatch({ taskName: e.target.value })}
           ref={editInputRef}
           onKeyDown={handleKeyDown}
         />
       ) : (
-        <p style={{ backgroundColor: props.isComplete && "green" }}>
+        <p style={{ backgroundColor: props.isComplete ? "green" : undefined }}>
           {props.taskName.toUpperCase()}
         </p>
       )}
@@ -83,7 +92,7 @@ export function Task(props) {
               if (!props.isComplete) {
                 setIsEditing(true);
                 // console.log(props)
-                dispatch({taskName: props.taskName})
+                dispatch({ taskName: props.taskName });
               }
             }}
           >

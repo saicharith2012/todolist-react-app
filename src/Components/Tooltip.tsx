@@ -1,7 +1,12 @@
 import React from "react";
 import "../App.css";
 
-const Tooltip = ({ text, children }) => {
+interface Props {
+  text: string,
+  children: React.ReactNode
+}
+
+const Tooltip = ({ text, children }: Props) => {
   return (
     <div className="tooltip">
       {children}
