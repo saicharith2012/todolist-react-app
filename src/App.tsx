@@ -5,7 +5,12 @@ import DateTimeComponent from "./Components/DateAndTimeComponent";
 import Toggle from "react-toggle";
 import useColorScheme from "./utils/useColorScheme";
 import moment from "moment";
-import { DragDropContext, Droppable, Draggable, DropResult } from "@hello-pangea/dnd"; // Importing necessary components
+import {
+  DragDropContext,
+  Droppable,
+  Draggable,
+  DropResult,
+} from "@hello-pangea/dnd"; // Importing necessary components
 import { v4 as uuidv4 } from "uuid";
 import Tooltip from "./Components/Tooltip";
 
@@ -16,10 +21,11 @@ interface taskType {
   timestamp: string;
 }
 
-
 function App() {
   const [todoList, setToDoList] = useState<taskType[]>(() => {
-    const storedTasks: taskType[] = JSON.parse(localStorage.getItem("todoList") || "[]");
+    const storedTasks: taskType[] = JSON.parse(
+      localStorage.getItem("todoList") || "[]"
+    );
     const validTasks: taskType[] = storedTasks.filter((task: taskType) => {
       const currentTime = new Date().getTime();
       const taskTime = new Date(task.timestamp).getTime();
@@ -30,7 +36,7 @@ function App() {
   const [topic, setTopic] = useState("");
   const [newTask, setNewTask] = useState("");
   const [errorMessage, setErrorMessage] = useState(""); // Add error message state
-  const {isDarkMode, setIsDarkMode} = useColorScheme();
+  const { isDarkMode, setIsDarkMode } = useColorScheme();
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
@@ -76,11 +82,17 @@ function App() {
   };
 
   const completeTask = (id: string) => {
-    setToDoList(
-      todoList.map((task: taskType) => {
-        return task.id === id ? { ...task, isComplete: true } : task;
-      })
-    );
+    setToDoList((prevList) => {
+      const updatedList = prevList.map((task: taskType) =>
+        task.id === id ? { ...task, isComplete: true } : task
+      );
+
+      // Sort the list to move completed tasks to the bottom
+      return updatedList.sort((a, b) => {
+        if (a.isComplete === b.isComplete) return 0;
+        return a.isComplete ? 1 : -1;
+      });
+    });
   };
 
   const deleteAllTasks = () => {
